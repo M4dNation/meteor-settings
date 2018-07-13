@@ -1,24 +1,31 @@
-Package.describe({
-  name: 'meteor-settings',
-  version: '0.0.1',
-  // Brief, one-line summary of the package.
-  summary: '',
-  // URL to the Git repository containing the source code for this package.
-  git: '',
-  // By default, Meteor will default to using README.md for documentation.
-  // To avoid submitting documentation, set this field to null.
-  documentation: 'README.md'
+Package.describe(
+{
+    name: "m4dnation:meteor-settings",
+  
+    version: "0.0.1",
+  
+    summary: "Autoloading for Meteor settings file.",
+  
+    git: "https://github.com/M4dNation/meteor-settings",
 });
-
-Package.onUse(function(api) {
-  api.versionsFrom('1.7.0.3');
-  api.use('ecmascript');
-  api.mainModule('meteor-settings.js');
+  
+Package.onUse(function(api)
+{
+    api.versionsFrom("1.6");
+  
+    api.use(["ecmascript", "underscore", "meteorblackbelt:underscore-deep@0.0.3", "udondan:yml@3.2.2_1"], "server");
+  
+    api.mainModule("src/meteor-settings.js", "server");
 });
-
-Package.onTest(function(api) {
-  api.use('ecmascript');
-  api.use('tinytest');
-  api.use('meteor-settings');
-  api.mainModule('meteor-settings-tests.js');
+  
+Package.onTest(function(api)
+{
+    api.versionsFrom("1.6");
+  
+    api.use(["ecmascript", "practicalmeteor:mocha"]);
+  
+    api.use("m4dnation:meteor-settings");
+  
+    api.mainModule("tests/meteor-settings-tests.js");
 });
+  
