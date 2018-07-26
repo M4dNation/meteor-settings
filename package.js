@@ -11,7 +11,7 @@ Package.describe(
   
 Package.onUse(function(api)
 {
-    api.versionsFrom("1.6");
+    api.versionsFrom("1.7.0.3");
   
     api.use(["ecmascript", "underscore", "meteorblackbelt:underscore-deep@0.0.3", "udondan:yml@3.2.2_1"], "server");
   
@@ -20,7 +20,7 @@ Package.onUse(function(api)
   
 Package.onTest(function(api)
 {
-    api.versionsFrom("1.6");
+    api.versionsFrom("1.7.0.3");
   
     api.use(["ecmascript", "practicalmeteor:mocha"]);
   
