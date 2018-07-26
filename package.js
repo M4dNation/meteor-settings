@@ -2,7 +2,7 @@ Package.describe(
 {
     name: "m4dnation:meteor-settings",
   
-    version: "1.0.0",
+    version: "1.0.1",
   
     summary: "Autoloading for Meteor settings file.",
   
