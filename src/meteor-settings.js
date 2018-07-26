@@ -55,7 +55,7 @@ function loadConfigFiles(filenames, config = {})
         if (content !== false)
         {
             result = parseConfig(content, filename);
-            Obj.deepExtend(config, result, true);
+            Obj.merge(config, result, true);
         }
     });
 };
@@ -104,9 +104,9 @@ export class Settings
         loadConfigFiles(locateFiles(configPath, false, new RegExp("(auto)\.(json|yml|yaml)$")), config);
         loadConfigFiles(locateFiles(path.join(configPath, process.env.NODE_ENV), false, new RegExp("(auto)\.(json|yml|yaml)$")), config);
 
-        Obj.deepExtend(Meteor.settings.public, config.public, true);
+        Obj.merge(Meteor.settings.public, config.public, true);
         
-        Meteor.settings.private = Meteor.settings.private ? Obj.deepExtend(Meteor.settings.private, config.private, true) : config.private;
+        Meteor.settings.private = Meteor.settings.private ? Obj.merge(Meteor.settings.private, config.private, true) : config.private;
     }
 
     static getPublicConfig()
@@ -115,7 +115,7 @@ export class Settings
 
         loadConfigFiles(locateFiles(path.join(configPath, process.env.NODE_ENV), false, new RegExp("(public)\.(json|yml|yaml)$")), config);
 
-        Obj.deepExtend(Meteor.settings.public, config, true);
+        Obj.merge(Meteor.settings.public, config, true);
     }
 
     static getPrivateConfig()
@@ -124,7 +124,7 @@ export class Settings
 
         loadConfigFiles(locateFiles(path.join(configPath, process.env.NODE_ENV), false, new RegExp("(private)\.(json|yml|yaml)$")), config);
 
-        Meteor.settings.private = Meteor.settings.private ? Obj.deepExtend(Meteor.settings.private, config, true) : config;
+        Meteor.settings.private = Meteor.settings.private ? Obj.merge(Meteor.settings.private, config, true) : config;
     }
 
     static getFullConfig()
