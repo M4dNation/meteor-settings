@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { Collection, Obj } from "jstoolbox";
 
 const serverDir = path.resolve(__meteor_bootstrap__.serverDir);
 const assetBundlePath = path.join(serverDir, "assets", "app");
@@ -47,14 +48,14 @@ function loadConfigFiles(filenames, config = {})
 {
     let content = null, result = null;
 
-    _.each(filenames, function(filename)
+    Collection.each(filenames, function(filename)
     {
         content = loadConfigFile(filename);
 
         if (content !== false)
         {
             result = parseConfig(content, filename);
-            _.deepExtend(config, result, true);
+            Obj.deepExtend(config, result, true);
         }
     });
 };
@@ -73,7 +74,7 @@ function loadConfigFile(filename)
     }
     catch (e)
     {
-        throw new Meteor.Error('The content of file ' + assetPath(filename) + ' is not valid!' );
+        throw new Meteor.Error("The content of file " + assetPath(filename) + " is not valid!" );
     }
 };
 
@@ -85,7 +86,7 @@ function parseConfig(content, filename)
     }
     catch (error)
     {
-        throw new Meteor.Error('The content of file ' + assetPath(filename) + ' is not valid!' );
+        throw new Meteor.Error("The content of file " + assetPath(filename) + " is not valid!" );
     }
 };
 
@@ -103,9 +104,9 @@ export class Settings
         loadConfigFiles(locateFiles(configPath, false, new RegExp("(auto)\.(json|yml|yaml)$")), config);
         loadConfigFiles(locateFiles(path.join(configPath, process.env.NODE_ENV), false, new RegExp("(auto)\.(json|yml|yaml)$")), config);
 
-        _.deepExtend(Meteor.settings.public, config.public, true);
+        Obj.deepExtend(Meteor.settings.public, config.public, true);
         
-        Meteor.settings.private = Meteor.settings.private ? _.deepExtend(Meteor.settings.private, config.private, true) : config.private;
+        Meteor.settings.private = Meteor.settings.private ? Obj.deepExtend(Meteor.settings.private, config.private, true) : config.private;
     }
 
     static getPublicConfig()
@@ -114,7 +115,7 @@ export class Settings
 
         loadConfigFiles(locateFiles(path.join(configPath, process.env.NODE_ENV), false, new RegExp("(public)\.(json|yml|yaml)$")), config);
 
-        _.deepExtend(Meteor.settings.public, config, true);
+        Obj.deepExtend(Meteor.settings.public, config, true);
     }
 
     static getPrivateConfig()
@@ -123,7 +124,7 @@ export class Settings
 
         loadConfigFiles(locateFiles(path.join(configPath, process.env.NODE_ENV), false, new RegExp("(private)\.(json|yml|yaml)$")), config);
 
-        Meteor.settings.private = Meteor.settings.private ? _.deepExtend(Meteor.settings.private, config, true) : config;
+        Meteor.settings.private = Meteor.settings.private ? Obj.deepExtend(Meteor.settings.private, config, true) : config;
     }
 
     static getFullConfig()
